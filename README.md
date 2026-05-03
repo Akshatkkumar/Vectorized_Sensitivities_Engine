@@ -106,10 +106,10 @@ python -m scripts.main
 
 | Methodology | Value (Mean) | Value (Std) | Delta (Mean) | Delta (Std) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Procedural Monte Carlo** | 83.332684 | 25.367351 (Std) | 0.035912 | 1.780452 (Std) |
-| **MC + OSS** | 78.284871 | 9.344650 (Std) | 0.017597 | 0.659325 (Std) |
-| **MC + OSS + JAX/AAD** | 71.001945 | 10.253222 (Std) | 0.015191 | **N/A (Exact)** |
+| **Procedural Monte Carlo** | 87.1931 | 20.6385 (Std) | 0.0236 | 1.4347 (Std) |
+| **MC + OSS** | 87.1275 | 9.9426 (Std) | 0.0192 | 0.6999 (Std) |
+| **MC + OSS + JAX/AAD** | 87.1732 | 9.9613 (Std) | 0.0203 | 0.0097 (Std) |
 
-> **Note:** The AAD implementation computes the exact mathematical gradient of the simulation via Automatic Differentiation. Because it differentiates the expected value directly, it provides a machine-precision result with near-zero sensitivity variance compared to path-wise approximations.
+> **Note:** The AAD implementation decreases the Std for Delta by 72x compared to the MC+OSS implementation and by 147x compared to the vanilla procedural MC. 
 ---
 *Developed as part of an exploration into stable pricing models for barrier options*
