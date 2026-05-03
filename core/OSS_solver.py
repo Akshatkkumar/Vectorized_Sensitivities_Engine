@@ -9,7 +9,7 @@ def gen_gbm(S_0, r, b, v, ts, B, S_ref):
     X = 0
     Ps = []
     for dt in np.diff([0]+ts):
-        p = norm.cdf((np.log(B*S_ref/S_0) - X - (r-b)*dt) / (v*dt))
+        p = norm.cdf((np.log(B*S_ref/S_0) - X - ((r-b)-0.5*v**2)*dt) / (v*dt))
         X = X + ((r-b)-0.5*v**2)*dt + v*np.sqrt(dt)*norm.ppf(np.random.random()*p) 
         Xs.append(X)
         Ps.append(p)
@@ -19,9 +19,9 @@ def gen_gbm(S_0, r, b, v, ts, B, S_ref):
 def value(Ss, Ps, Qs, ts, q, r, B, S_ref):
     L = 1
     val = 0
-    for j in range(len(ts)-1):
+    for j in range(len(ts)):
         val += np.exp(-r*ts[j]) * L * (1-Ps[j]) * Qs[j]
-        L = L * Ps[j]
+        L *= Ps[j]
     val += np.exp(-r*ts[-1]) * L * q(Ss[-1]/S_ref) 
     return val
 
